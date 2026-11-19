@@ -1,14 +1,20 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! Turns a GLSL fragment shader written the Shadertoy way into SPIR-V.
+//!
+//! The user writes `void mainImage(out vec4 fragColor, in vec2 fragCoord)`.
+//! [`prepare`] adds the version, the uniforms and a `main()` that calls it.
+//! [`Compiler::compile`] runs glslang (through `shaderc`) on the result and
+//! returns either SPIR-V words or [`Diagnostic`]s whose line numbers point
+//! into the user's own file, not into the generated one.
+//!
+//! A source with its own `#version` line is compiled untouched: the user
+//! is then in charge of the whole shader.
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+mod compiler;
+mod diagnostic;
+mod globals;
+mod preamble;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use compiler::{CompileError, Compiled, Compiler};
+pub use diagnostic::{Diagnostic, Severity};
+pub use globals::Globals;
+pub use preamble::{Prepared, prepare};

@@ -1,6 +1,16 @@
 [package]
 name = "fenetre-glsl"
-version = "0.1.0"
-edition = "2024"
+description = "Wraps Shadertoy-style GLSL, compiles it to SPIR-V and reports errors on the user's lines."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 
 [dependencies]
+shaderc.workspace = true
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+naga = { version = "30.0.2", features = ["spv-in"] }
