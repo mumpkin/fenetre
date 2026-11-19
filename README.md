@@ -29,11 +29,19 @@ Linux first (Wayland and X11).
 
 ## Building
 
-Requires a recent stable Rust toolchain (edition 2024).
+Requires a recent stable Rust toolchain (edition 2024) and the shaderc
+library (`pacman -S shaderc` on Arch, `apt install libshaderc-dev` on
+Debian/Ubuntu).
 
 ```sh
 cargo build
 cargo test
+```
+
+Check shaders from the command line (errors point to your own lines):
+
+```sh
+cargo run -p fenetre-glsl --example check -- my-shader.frag
 ```
 
 ## Layout
